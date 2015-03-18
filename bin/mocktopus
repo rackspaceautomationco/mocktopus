@@ -1,7 +1,14 @@
 #!/usr/bin/env ruby
 require "pathname"
-bin_file = Pathname.new(__FILE__).realpath
+pn = Pathname.new(__FILE__)
+bin_file = pn.realpath
 $:.unshift File.expand_path("../../lib", bin_file)
 
 require 'mocktopus/cli'
+
+root = File.expand_path('../..', bin_file)
+ENV['BUNDLE_GEMFILE'] = "#{root}/Gemfile"
+ENV['CONFIG_RU'] = "#{root}/config.ru"
+
+Mocktopus::CLI.source_root(File.expand_path('../../', bin_file))
 Mocktopus::CLI.start(ARGV)
