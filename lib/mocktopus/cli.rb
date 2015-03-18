@@ -9,7 +9,7 @@ module Mocktopus
     def start(*args)
       port_option = args.include?('-p') ? '' : ' -p 8081'
       args = args.join(' ')
-      command = "bundle exec thin -R #{ENV['CONFIG_RU']} start#{port_option} #{args}"
+      command = "bundle exec thin -R #{ENV['CONFIG_RU'] || 'config.ru'} start#{port_option} #{args}"
       run_command(command)
     end
 
