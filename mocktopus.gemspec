@@ -11,7 +11,7 @@ Gem::Specification.new do |s|
   s.description = 'The Mocktopus is a Sinatra/thin-based Web API that lets you mock your app dependencies'
   s.author      = 'Rackspace'
   s.email       = ['racksburg_automation@lists.rackspace.com']
-  s.homepage    = ''
+  s.homepage    = 'https://github.com/rackspaceautomationco/mocktopus'
 
   s.files = Dir['README.md', 'lib/**/*']
 
