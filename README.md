@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/rackspaceautomationco/mocktopus.svg?branch=v0.0.1)](https://travis-ci.org/rackspaceautomationco/mocktopus) [![Coverage Status](https://coveralls.io/repos/rackspaceautomationco/mocktopus/badge.svg)](https://coveralls.io/r/rackspaceautomationco/mocktopus)
+
        . .
       -|-|-. .-,
        '-' '-`'-
