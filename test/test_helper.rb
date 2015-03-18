@@ -19,7 +19,7 @@ require 'mocha/setup'
 
 require_relative '../lib/mocktopus'
 
-FakeWeb.allow_net_connect = false
+FakeWeb.allow_net_connect = %r[^https?://coveralls.io]
 
 ENV['RACK_ENV'] = 'test'
 WORKING_DIRECTORY = Dir.pwd.freeze
