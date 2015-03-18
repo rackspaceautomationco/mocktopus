@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/rackspaceautomationco/mocktopus.svg?branch=v0.0.1)](https://travis-ci.org/rackspaceautomationco/mocktopus) [![Coverage Status](https://coveralls.io/repos/rackspaceautomationco/mocktopus/badge.svg)](https://coveralls.io/r/rackspaceautomationco/mocktopus) [![Gem Version](https://badge.fury.io/rb/mocktopus.svg)](http://badge.fury.io/rb/mocktopus)
+[![Build Status](https://travis-ci.org/rackspaceautomationco/mocktopus.svg?branch=v0.0.1)](https://travis-ci.org/rackspaceautomationco/mocktopus) [![Coverage Status](https://coveralls.io/repos/rackspaceautomationco/mocktopus/badge.svg?branch=master)](https://coveralls.io/r/rackspaceautomationco/mocktopus?branch=master) [![Gem Version](https://badge.fury.io/rb/mocktopus.svg)](http://badge.fury.io/rb/mocktopus)
 
        . .
       -|-|-. .-,
