@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mocktopus'
-  s.version     = '0.0.5'
+  s.version     = '0.0.6'
   s.date        = '2015-03-14'
   s.required_ruby_version = '>= 1.9.3'
 
@@ -20,7 +20,7 @@ Gem::Specification.new do |s|
   s.add_dependency 'thin', '~> 1.6.1', '>= 1.6.1'
   s.add_dependency 'thor', '~> 0.19.1', '>= 0.19.1'
   s.add_dependency 'rack', '~> 1.5.2', '>= 1.5.2'
-  
+
   s.add_development_dependency 'rake', '~> 10.1.0', '>= 10.1.0'
   s.add_development_dependency 'minitest', '~> 5.2.0', '>= 5.2.0'
   s.add_development_dependency 'fakeweb', '~> 1.3.0', '>= 1.3.0'

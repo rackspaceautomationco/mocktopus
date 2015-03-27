@@ -70,13 +70,14 @@ get '/mocktopus/inputs/:name' do
 end
 
 get '/mocktopus/mock_api_calls' do
-  $mock_api_call_container.all.to_json
+  content_type :json
+  status 200
+  body $mock_api_call_container.all.to_json
 end
 
 delete '/mocktopus/mock_api_calls' do
   $mock_api_call_container.delete_all
-  status 200
-  body "success"
+  status 204
 end
 
 delete '/mocktopus/inputs' do
