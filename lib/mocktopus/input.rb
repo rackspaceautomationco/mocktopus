@@ -49,7 +49,7 @@ module Mocktopus
 
       validate_instance_variables
 
-      LOGGER.debug("initialized input object from hash #{hash.inspect()}")
+      $logger.debug("initialized input object from hash #{hash.inspect()}")
     end
 
     def to_hash

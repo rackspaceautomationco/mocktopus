@@ -1,5 +1,9 @@
 require 'logger'
-LOGGER = Logger.new('mocktopus.log', 'daily')
+
+$logger = Logger.new(STDOUT) unless $logger
+
+class ::Logger; alias_method :write, :info; end
+class ::Logger; alias_method :puts, :error; end
 
 require 'mocktopus/response'
 require 'mocktopus/input'

@@ -29,5 +29,7 @@ module Mocktopus
   class Test < Minitest::Test
     include Rack::Test::Methods
 
+      $logger = Logger.new('/dev/null')
+
   end
 end
