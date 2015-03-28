@@ -1,7 +1,8 @@
-require 'sinatra'
 require_relative '../../ascii.rb'
 
-LOGGER.info 'initialized mocktopus app'
+require 'sinatra'
+
+$logger.info 'initialized mocktopus app'
 $input_container = Mocktopus::InputContainer.new
 $mock_api_call_container = Mocktopus::MockApiCallContainer.new
 
@@ -24,7 +25,7 @@ error_example = {
 }
 
 post '/mocktopus/inputs/:name' do
-  LOGGER.info("received new input named #{params[:name]}")
+  $logger.info("received new input named #{params[:name]}")
   begin
     body = JSON.parse(request.body.read().to_s)
   rescue
@@ -34,22 +35,22 @@ post '/mocktopus/inputs/:name' do
     body error_hash.to_json
     return
   end
-  LOGGER.debug("body: #{body.inspect()}")
+  $logger.debug("body: #{body.inspect()}")
 
-  LOGGER.debug("creating response object from #{body['response']}")
+  $logger.debug("creating response object from #{body['response']}")
   response = Mocktopus::Response.new(body['response'])
 
-  LOGGER.debug("creating input object from #{body.inspect}, #{response.inspect}")
+  $logger.debug("creating input object from #{body.inspect}, #{response.inspect}")
   input = Mocktopus::Input.new(body, response)
 
-  LOGGER.info("added input #{params[:name]} successfully")
+  $logger.info("added input #{params[:name]} successfully")
   $input_container.add(params[:name], input)
 end
 
 get '/mocktopus/inputs' do
-  LOGGER.info("all inputs requested")
+  $logger.info("all inputs requested")
   all_inputs = $input_container.all()
-  LOGGER.debug("found #{all_inputs.size()} inputs")
+  $logger.debug("found #{all_inputs.size()} inputs")
   return_inputs = {}
   all_inputs.each do |k,v|
     return_inputs[k] = v.to_hash
@@ -59,7 +60,7 @@ get '/mocktopus/inputs' do
 end
 
 get '/mocktopus/inputs/:name' do
-  LOGGER.info("retrieving input by name #{params[:name]}")
+  $logger.info("retrieving input by name #{params[:name]}")
   input = $input_container.get_by(params[:name])
   if (input != nil)
     input.to_hash.to_json
@@ -81,12 +82,12 @@ delete '/mocktopus/mock_api_calls' do
 end
 
 delete '/mocktopus/inputs' do
-  LOGGER.info("deleting all inputs")
+  $logger.info("deleting all inputs")
   $input_container.delete_all()
 end
 
 delete '/mocktopus/inputs/:name' do
-  LOGGER.info("deleting input by name #{params[:name]}")
+  $logger.info("deleting input by name #{params[:name]}")
   $input_container.delete_by(params[:name])
 end
 
@@ -112,13 +113,13 @@ not_found do
 
   $mock_api_call_container.add(Mocktopus::MockApiCall.new(log_path, verb, request_headers, body))
 
-  LOGGER.info("not_found catch all invoked")
+  $logger.info("not_found catch all invoked")
   start_time = Time.now.to_f
-  LOGGER.debug("looking for a match with path #{request.fullpath}, verb #{verb}, headers #{request_headers}, body #{body}")
+  $logger.debug("looking for a match with path #{request.fullpath}, verb #{verb}, headers #{request_headers}, body #{body}")
   match = $input_container.match(path, verb, request_headers, body, request.env['rack.request.query_hash'])
-  LOGGER.debug("match lookup complete")
+  $logger.debug("match lookup complete")
   if (match.nil?)
-    LOGGER.info("match not found.  sending 428")
+    $logger.info("match not found.  sending 428")
     status 428
     content_type :json
     body_detail = { 
@@ -132,12 +133,12 @@ not_found do
     }
     body body_detail.to_json
   else
-    LOGGER.info("match found #{match.inspect}")
+    $logger.info("match found #{match.inspect}")
     sleep(match.response.delay/1000)
     status match.response.code
     headers match.response.headers
     body match.response.body
   end
   end_time = Time.now.to_f
-  LOGGER.info("not_found catch all completed in #{((end_time - start_time) * 1000)} milliseconds")
+  $logger.info("not_found catch all completed in #{((end_time - start_time) * 1000)} milliseconds")
 end

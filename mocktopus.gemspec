@@ -27,4 +27,5 @@ Gem::Specification.new do |s|
   s.add_development_dependency 'mocha', '~> 0.14.0', '>= 0.14.0'
   s.add_development_dependency 'simplecov', '~> 0.9.2', '>= 0.9.2'
   s.add_development_dependency 'coveralls', '~> 0.7.11', '>= 0.7.11'
+  s.add_development_dependency 'pry', '~> 0.10.1', '>= 0.10.1'
 end

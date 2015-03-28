@@ -16,7 +16,7 @@ module Mocktopus
             :delay
 
     def initialize(hash)
-      LOGGER.debug("initializing response object")
+      $logger.debug("initializing response object")
       @code = hash['code']
       @headers = hash['headers']
       @body = hash['body']
@@ -30,7 +30,7 @@ module Mocktopus
 
       validate_instance_variables()
 
-      LOGGER.debug("initialized response object from hash #{hash.inspect()}")
+      $logger.debug("initialized response object from hash #{hash.inspect()}")
     end
 
   def to_hash
