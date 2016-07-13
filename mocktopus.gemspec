@@ -2,9 +2,9 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mocktopus'
-  s.version     = '0.0.8'
-  s.date        = '2015-03-14'
-  s.required_ruby_version = '>= 1.9.3'
+  s.version     = '0.1.0'
+  s.date        = '2016-07-13'
+  s.required_ruby_version = '>= 2.0.0'
 
   s.summary     = 'A configurable mock Web API'
   s.description = 'The Mocktopus is a Sinatra/thin-based Web API that lets you mock your app dependencies'
