@@ -76,6 +76,11 @@ module Mocktopus
         match = true
       elsif (input_body.to_s.gsub(/\s+/, "").hash.eql?(match_body.to_s.gsub(/\s+/, "").hash))
         match = true
+      else
+        begin
+          match = JSON.parse(input_body.to_s).hash.eql?(JSON.parse(match_body.to_s).hash)
+        rescue
+        end
       end
       return match
     end

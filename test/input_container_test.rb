@@ -226,4 +226,32 @@ class InputContainerTest < Mocktopus::Test
     assert_equal(response2, last_match.response)
   end
 
+  def test_body_hash_order
+    response = Mocktopus::Response.new({
+        "code" => "200",
+        "headers" => {},
+        "body" => {
+        }
+      })
+
+    input1 = Mocktopus::Input.new({
+      "uri" => "/v1/aliases",
+      "verb" => "POST",
+      "headers" => {
+        },
+      "body"  => {
+        "addresses" => ["real1@real.com", "test1@test.com"], "email" => "aliascreateoknotype@alias.com"
+      }
+    }, response)
+
+    container = Mocktopus::InputContainer.new
+    container.add("input1", input1)
+    match_result = container.match("/v1/aliases", "POST", {},
+      JSON.pretty_generate({"email" => "aliascreateoknotype@alias.com", "addresses" => ["real1@real.com", "test1@test.com"]}), {})
+    # require 'pry'
+    # binding.pry
+    refute_nil match_result
+    assert_equal(response, match_result.response)
+  end
+
 end
