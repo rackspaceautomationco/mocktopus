@@ -106,7 +106,7 @@ not_found do
     request.env['rack.request.query_hash'].keys.each do |k|
       log_path += k
       log_path += '='
-      log_path += request.env['rack.request.query_hash'][k]
+      log_path += request.env['rack.request.query_hash'][k].to_s
       log_path += '&' unless k == request.env['rack.request.query_hash'].keys.last      
     end
   end

@@ -2,7 +2,7 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mocktopus'
-  s.version     = '0.1.0'
+  s.version     = '0.1.1'
   s.date        = '2016-07-13'
   s.required_ruby_version = '>= 2.0.0'
 

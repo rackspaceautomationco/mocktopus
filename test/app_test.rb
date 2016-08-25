@@ -44,10 +44,10 @@ class AppTest < Mocktopus::Test
       "key1" => "value1",
       "key2" => "value2"
     }
-    input1 = create_input('/v0/test_match_get1', 'GET', { "host"=>"example.org", "cookie"=>"" }, nil, 200, nil, response_body_hash)
+    input1 = create_input('/v0/test_match_get1?wsdl', 'GET', { "host"=>"example.org", "cookie"=>"" }, nil, 200, nil, response_body_hash)
     post '/mocktopus/inputs/test_match_get1', JSON.pretty_generate(input1)
 
-    response = get '/v0/test_match_get1'
+    response = get '/v0/test_match_get1?wsdl'
     assert_equal(200, response.status)
     assert_equal(response_body_hash, JSON.parse(response.body))
   end
