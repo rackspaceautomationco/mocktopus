@@ -41,7 +41,7 @@ module Mocktopus
       result = nil
       matches = inputs.select{|v| URI.decode(v.uri).eql?(URI.decode(path)) && 
                                                   headers_match?(headers, v.headers) && 
-                                                  bodies_match?(v.body, body) && 
+                                                  (v.skip_body || bodies_match?(v.body, body)) && 
                                                   v.verb.eql?(verb) && 
                                                   v.url_parameters.eql?(url_parameters) }
       case matches.size
@@ -56,6 +56,7 @@ module Mocktopus
     end
 
     private
+
     def headers_match?(input_headers, match_headers)
       match = true
       if (match_headers != nil)
