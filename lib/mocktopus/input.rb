@@ -18,7 +18,8 @@ module Mocktopus
     :body,
     :url_parameters,
     :verb,
-    :response
+    :response,
+    :skip_body
 
     def initialize(hash, response)
 
@@ -46,7 +47,7 @@ module Mocktopus
       @body = body
       @verb = hash['verb'].upcase
       @response = response
-
+      @skip_body = (hash['skip_body'] || false).eql? true
       validate_instance_variables
 
       $logger.debug("initialized input object from hash #{hash.inspect()}")

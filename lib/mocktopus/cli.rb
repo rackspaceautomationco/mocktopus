@@ -10,22 +10,16 @@ module Mocktopus
       port_option = args.include?('-p') ? '' : ' -p 8081'
       args = args.join(' ')
       command = "bundle exec thin -R #{ENV['CONFIG_RU'] || 'config.ru'} start#{port_option} #{args}"
-      run_command(command)
+      Kernel.system(command)
     end
 
     desc "stop", "stops the mocktopus"
     def stop
       command = "bundle exec thin stop"
-      run_command(command)
+      Kernel.system(command)
     end
 
     map 's' => :start
-
-    private
-
-    def run_command(command)
-      system(command)
-    end
     
   end
 end
