@@ -1,5 +1,6 @@
 require 'time'
 require 'json'
+require 'uri'
 
 module Mocktopus
 
@@ -17,7 +18,11 @@ module Mocktopus
       @verb = verb
       @headers = headers
       begin
-        @body = JSON.parse(body)
+        @body = if @headers.has_key?('content_type') && @headers['content_type'] == 'application/x-www-form-urlencoded'
+                  URI::decode_www_form_component(body).to_s
+                else
+                  JSON.parse(body)
+                end
       rescue
         @body = body
       end
