@@ -2,7 +2,7 @@
 require 'test_helper'
 
 class AppTest < Mocktopus::Test
-  
+
   def setup
 
   end
@@ -126,6 +126,7 @@ class AppTest < Mocktopus::Test
       "key1" => "value_one",
       "key2" => "value_two"
     }
+    header 'content-type', 'application/json'
     input = create_input(uri, verb, body, '', code, {}, '')
     post "/mocktopus/inputs/#{uri}", input
 
