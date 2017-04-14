@@ -2,8 +2,8 @@
 
 Gem::Specification.new do |s|
   s.name        = 'mocktopus'
-  s.version     = '0.1.3'
-  s.date        = '2017-03-14'
+  s.version     = '0.1.4'
+  s.date        = '2017-04-14'
   s.required_ruby_version = '>= 2.0.0'
 
   s.summary     = 'A configurable mock Web API'
