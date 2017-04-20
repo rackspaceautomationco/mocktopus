@@ -127,8 +127,8 @@ class AppTest < Mocktopus::Test
       "key2" => "value_two"
     }
     header 'content-type', 'application/json'
-    input = create_input(uri, verb, body, '', code, {}, '')
-    post "/mocktopus/inputs/#{uri}", input
+    input = create_input(uri, verb, {}, body, code, {}, '')
+    post "/mocktopus/inputs/test_mock_api_calls", JSON.pretty_generate(input)
 
     post uri, JSON.pretty_generate(body)
     calls = get '/mocktopus/mock_api_calls'
@@ -257,6 +257,29 @@ class AppTest < Mocktopus::Test
     get random_uri
     assert_equal 428, last_response.status
     assert_equal random_uri, JSON.parse(last_response.body)['call']['path']
+  end
+
+  def test_mock_api_calls_unmatched
+    uri = '/test_unmatched_mock_api_calls/1'
+    verb = 'POST'
+    code = 200
+    body = {
+      "key1" => "value_one",
+      "key2" => "value_two"
+    }
+    input = create_input(uri, verb, {}, body, code, {}, '')
+    header 'content-type', 'application/json'
+    post "/mocktopus/inputs/test_unmatched_mock_api_calls", JSON.pretty_generate(input)
+
+    post uri, JSON.pretty_generate(body)
+    put uri, JSON.pretty_generate(body)
+    calls = get '/mocktopus/mock_api_calls?unmatched=true'
+    json = JSON.parse(calls.body)
+    this_test_call = json.select{|k| k['path'] == uri }.first
+    refute_nil this_test_call
+    assert_equal(uri, this_test_call['path'])
+    assert_equal("PUT", this_test_call['verb'])
+    assert_equal(body, this_test_call['body'])
   end
 
   private

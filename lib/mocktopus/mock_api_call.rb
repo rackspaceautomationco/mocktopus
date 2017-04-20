@@ -10,13 +10,15 @@ module Mocktopus
       :path,
       :verb,
       :headers,
-      :body
+      :body,
+      :matched
 
     def initialize(path, verb, headers, body)
       @timestamp = Time.now.utc.iso8601(10)
       @path = path
       @verb = verb
       @headers = headers
+      @matched = false
       begin
         @body = if @headers.has_key?('content_type') && @headers['content_type'] == 'application/x-www-form-urlencoded'
                   URI::decode_www_form_component(body).to_s
@@ -34,7 +36,8 @@ module Mocktopus
         'path' => @path,
         'verb' => @verb,
         'headers' => @headers,
-        'body' => @body
+        'body' => @body,
+        'matched' => @matched
       }
     end
 

@@ -73,7 +73,7 @@ end
 get '/mocktopus/mock_api_calls' do
   content_type :json
   status 200
-  body $mock_api_call_container.all.to_json
+  body $mock_api_call_container.all(params[:unmatched] || false).to_json
 end
 
 delete '/mocktopus/mock_api_calls' do
@@ -107,11 +107,12 @@ not_found do
       log_path += k
       log_path += '='
       log_path += request.env['rack.request.query_hash'][k].to_s
-      log_path += '&' unless k == request.env['rack.request.query_hash'].keys.last      
+      log_path += '&' unless k == request.env['rack.request.query_hash'].keys.last
     end
   end
 
-  $mock_api_call_container.add(Mocktopus::MockApiCall.new(log_path, verb, request_headers, body))
+  call = Mocktopus::MockApiCall.new(log_path, verb, request_headers, body)
+  $mock_api_call_container.add(call)
 
   $logger.info("not_found catch all invoked")
   start_time = Time.now.to_f
@@ -122,7 +123,7 @@ not_found do
     $logger.info("match not found.  sending 428")
     status 428
     content_type :json
-    body_detail = { 
+    body_detail = {
       'message' => 'match not found',
       'call' => {
         'path' => request.fullpath,
@@ -133,6 +134,7 @@ not_found do
     }
     body body_detail.to_json
   else
+    call.matched = true
     $logger.info("match found #{match.inspect}")
     sleep(match.response.delay/1000)
     status match.response.code
